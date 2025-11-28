@@ -22,11 +22,11 @@ var direction := Vector2.RIGHT
 var is_moving := false
 
 func _physics_process(delta: float) -> void:
-	handle_movement()
+	handle_movement(delta)
 	play_animation()
 	move_and_slide()
 
-func handle_movement() -> void:
+func handle_movement(delta) -> void:
 	var input_vector := Vector2.ZERO
 	
 	for action in INPUT_MAP.keys():
@@ -38,7 +38,7 @@ func handle_movement() -> void:
 
 	if is_moving:
 		direction = input_vector
-		velocity = direction * SPEED
+		velocity = direction * SPEED * delta * Globals.FRAMERATE
 	else:
 		velocity = Vector2.ZERO
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://88vhtu2nbtck"]
+[gd_scene load_steps=14 format=4 uid="uid://88vhtu2nbtck"]
 
 [ext_resource type="PackedScene" uid="uid://dlrk0hkpq35vu" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Texture2D" uid="uid://cq28dm0x7gkic" path="res://assets/tilesets/plains.png" id="2_p57ef"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://iq7beatnr713" path="res://assets/tilesets/fences.png" id="4_gee14"]
 [ext_resource type="Texture2D" uid="uid://w3yrnt1t54s6" path="res://assets/objects/chest_01.png" id="5_0tnpc"]
 [ext_resource type="Texture2D" uid="uid://dmeqfy5et4hs" path="res://assets/objects/objects.png" id="6_vtaks"]
+[ext_resource type="PackedScene" uid="uid://bxaeicwx4ipow" path="res://scenes/enemy.tscn" id="7_u5sy4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kvpfn"]
 texture = ExtResource("2_p57ef")
@@ -176,7 +177,7 @@ y_sort_enabled = true
 [node name="Player" parent="." instance=ExtResource("1_uwrxv")]
 z_index = 1
 y_sort_enabled = true
-position = Vector2(94, 66)
+position = Vector2(11, 62)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position_smoothing_enabled = true
@@ -202,3 +203,6 @@ z_index = 1
 y_sort_enabled = true
 tile_map_data = PackedByteArray("AAABAAYABQAAAAUAAAACAAAABQAKAAcAAAAGAAEABQAIAAYAAAAGAAIABQAIAAgAAAAIAAEABQAIAAYAAAAIAAIABQAIAAgAAAAJAAEABQAIAAYAAAAJAAIABQAIAAgAAAAHAAEABQAIAAcAAAAHAAIABQAIAAgAAAAHAAAABQAIAAYAAAA=")
 tile_set = SubResource("TileSet_ca42v")
+
+[node name="Enemy" parent="." instance=ExtResource("7_u5sy4")]
+position = Vector2(134, 86)
