@@ -175,8 +175,6 @@ sources/5 = SubResource("TileSetAtlasSource_ir15t")
 y_sort_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_uwrxv")]
-z_index = 1
-y_sort_enabled = true
 position = Vector2(11, 62)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
@@ -205,4 +203,6 @@ tile_map_data = PackedByteArray("AAABAAYABQAAAAUAAAACAAAABQAKAAcAAAAGAAEABQAIAAY
 tile_set = SubResource("TileSet_ca42v")
 
 [node name="Enemy" parent="." instance=ExtResource("7_u5sy4")]
+z_index = 1
+y_sort_enabled = true
 position = Vector2(134, 86)
