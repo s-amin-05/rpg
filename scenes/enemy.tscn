@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://bxaeicwx4ipow"]
+[gd_scene load_steps=43 format=3 uid="uid://bxaeicwx4ipow"]
 
 [ext_resource type="Texture2D" uid="uid://x0swpsjbl1cw" path="res://assets/characters/slime.png" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://bkvkhnfx0opn3" path="res://scripts/enemy.gd" id="1_md0e3"]
@@ -292,6 +292,12 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_md0e3"]
 radius = 62.008064
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_4ra3w"]
+radius = 14.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5uy6h"]
+radius = 18.027756
+
 [node name="Enemy" type="CharacterBody2D"]
 z_index = 1
 y_sort_enabled = true
@@ -303,7 +309,8 @@ shape = SubResource("CircleShape2D_7p1mj")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 3)
 sprite_frames = SubResource("SpriteFrames_xwavj")
-animation = &"front_idle"
+animation = &"death"
+frame_progress = 0.42933705
 offset = Vector2(0, -6)
 
 [node name="DetectionArea" type="Area2D" parent="."]
@@ -315,6 +322,24 @@ z_index = -1
 shape = SubResource("CircleShape2D_md0e3")
 debug_color = Color(0.99951273, 0, 0.070224844, 0.41960785)
 
+[node name="EnemyHitbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitbox"]
+shape = SubResource("CircleShape2D_4ra3w")
+debug_color = Color(0.15646169, 0.52019244, 0.99509233, 0.41960785)
+
+[node name="EnemyHurtbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHurtbox"]
+shape = SubResource("CircleShape2D_5uy6h")
+debug_color = Color(0.39832243, 0.47169262, 1, 0.41960785)
+
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
 [connection signal="body_shape_exited" from="DetectionArea" to="." method="_on_detection_area_body_shape_exited"]
+[connection signal="body_entered" from="EnemyHitbox" to="." method="_on_enemy_hitbox_body_entered"]
+[connection signal="body_exited" from="EnemyHitbox" to="." method="_on_enemy_hitbox_body_exited"]

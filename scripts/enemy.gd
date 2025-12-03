@@ -5,9 +5,21 @@ var is_chasing = false
 var direction = Vector2.RIGHT
 var player = null
 
+const ATTACKING_SPEED = 1.0
+const DAMAGE = 20
+var player_in_range = false
+var is_attacking = false
+var attacked_body: CharacterBody2D = null
+var attack_cooldown: float
+
+func _ready() -> void:
+	attack_cooldown = 1.0 / ATTACKING_SPEED
+
 func _physics_process(delta):
 	handle_movement(delta)
+	handle_attack()
 	play_animation()
+
 		
 func _on_detection_area_body_entered(body: Node2D) -> void:
 	player = body
@@ -50,3 +62,24 @@ func snap_to_cardinal(vec: Vector2) -> Vector2:
 		return Vector2(sign(vec.x), 0)   
 	else:
 		return Vector2(0, sign(vec.y)) 
+
+
+func handle_attack():
+	if attacked_body and attacked_body.has_method("take_damage") and not is_attacking:
+		is_attacking = true
+		is_chasing = false
+		attacked_body.take_damage(DAMAGE)
+		await get_tree().create_timer(attack_cooldown).timeout
+		is_attacking = false
+		
+	
+
+func _on_enemy_hitbox_body_entered(body: Node2D) -> void:
+	player_in_range = true
+	attacked_body = body
+
+
+func _on_enemy_hitbox_body_exited(body: Node2D) -> void:
+	player_in_range = false
+	is_chasing = true
+	attacked_body = null

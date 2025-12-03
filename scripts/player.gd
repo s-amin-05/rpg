@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 const SPEED := 100.0
+var health: float = 100.0
 
 # Maps input actions to direction vectors
 const INPUT_MAP := {
@@ -52,3 +53,14 @@ func play_animation() -> void:
 		player_sprite.play(anim["walk"])
 	else:
 		player_sprite.play(anim["idle"])
+
+func take_damage(damage: float):
+	health = max(health - damage, 0) 
+	print("Damage taken")
+	print("Health", health)
+	if health == 0:
+		die()
+		
+func die():
+	print("Player died")
+	queue_free()
