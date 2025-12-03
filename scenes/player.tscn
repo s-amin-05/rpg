@@ -273,18 +273,18 @@ animations = [{
 "speed": 10.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 2.0,
 "texture": SubResource("AtlasTexture_2dvfe")
 }, {
-"duration": 1.0,
+"duration": 2.0,
 "texture": SubResource("AtlasTexture_giy8y")
 }, {
-"duration": 1.0,
+"duration": 2.0,
 "texture": SubResource("AtlasTexture_fdfoy")
 }],
-"loop": true,
+"loop": false,
 "name": &"death",
-"speed": 10.0
+"speed": 9.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -425,7 +425,9 @@ script = ExtResource("1_g2els")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_smehm")
-animation = &"front_idle"
+animation = &"death"
+frame = 2
+frame_progress = 1.0
 offset = Vector2(0, -17)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

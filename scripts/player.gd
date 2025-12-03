@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 const SPEED := 100.0
 var health: float = 100.0
+var is_dead := false
 
 # Maps input actions to direction vectors
 const INPUT_MAP := {
@@ -44,11 +45,12 @@ func handle_movement(delta) -> void:
 		velocity = Vector2.ZERO
 
 func play_animation() -> void:
-	var player_sprite := $AnimatedSprite2D
+	var player_sprite: AnimatedSprite2D= $AnimatedSprite2D
+
 	var anim = ANIM_MAP[direction]
 
 	player_sprite.flip_h = anim["flip"]
-
+	
 	if is_moving:
 		player_sprite.play(anim["walk"])
 	else:
@@ -57,10 +59,27 @@ func play_animation() -> void:
 func take_damage(damage: float):
 	health = max(health - damage, 0) 
 	print("Damage taken")
-	print("Health", health)
+	print("Health ", health)
 	if health == 0:
 		die()
 		
 func die():
+	if is_dead:
+		return  
+
+	is_dead = true
+	velocity = Vector2.ZERO  
+	set_physics_process(false)  
+	set_process(false)         
+
 	print("Player died")
+
+	var player_sprite: AnimatedSprite2D = $AnimatedSprite2D
+	player_sprite.play("death")
+
+	# Wait until animation finishes
+	player_sprite.animation_finished.connect(_on_death_animation_finished)
+
+func _on_death_animation_finished():
 	queue_free()
+	print("Death animation finished")
